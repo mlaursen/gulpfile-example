@@ -25,7 +25,8 @@ const FONTS = '/fonts';
 
 const DIST = './dist';
 const STATICS = APP + '/**/*.+(png|jpg|jpeg|ico|json|html|mp3|ttf)';
-const MAIN = JS + '/main.js';
+const MAIN = 'main.js';
+const LIBS = '3rdparty.js';
 
 
 // Any external packages that should be referenced from outside of your 'main.js' file.
@@ -71,14 +72,14 @@ gulp.task('clean', function() {
   /* Copies fonts from node_modules to the dist folder */
 gulp.task('fonts', function() {
   return gulp.src('node_modules/font-awesome/fonts/*')
-    .pipe(gulp.dest(DIST_DIRS.fonts));
+    .pipe(gulp.dest(DIST + FONTS));
 });
 
 
   /* Copy all the statics into the dist folder */
 gulp.task('statics', function() {
   // base allows for full path to statics from that directory
-  return gulp.src(APP_DIRS.statics, { base: APP })
+  return gulp.src(STATICS, { base: APP })
     .pipe(gulp.dest(DIST));
 });
 gulp.task('statics-watch', ['statics'], browserSync.reload);
@@ -87,14 +88,14 @@ gulp.task('statics-watch', ['statics'], browserSync.reload);
 
   /* Compile the scss files, copy to dist folder, and if not production, auto inject css instead of reload */
 gulp.task('styles', function() {
-  return sass(APP_DIRS.sass, CONFIG.sass)
+  return sass(APP + SCSS, CONFIG.sass)
     .pipe(postcss([
       autoprefixer({
         browsers: ['last 2 version']
       }),
     ]))
     .pipe(gulpif(isProduction, rename({ suffix: '.min' })))
-    .pipe(gulp.dest(DIST_DIRS.css))
+    .pipe(gulp.dest(DIST + CSS))
     .pipe(gulpif(!isProduction, browserSync.stream()));
 });
 gulp.task('styles-watch', ['styles']);
@@ -118,7 +119,7 @@ function bundle(b, fileName, type) {
     .pipe(buffer())
     .pipe(gulpif(isProduction, uglify()))
     .pipe(gulpif(isProduction, rename({ suffix: '.min' })))
-    .pipe(gulp.dest(DIST_DIRS.js));
+    .pipe(gulp.dest(DIST + JS));
 }
 
   /* Bundle the 3rdparty scripts to be used from the main app */
@@ -132,7 +133,7 @@ gulp.task('3rdparty-scripts', function() {
     }
   });
 
-  return bundle(vendors, '3rdparty.js', '3RDPARTY');
+  return bundle(vendors, LIBS, '3RDPARTY');
 
 
 });
@@ -142,7 +143,7 @@ gulp.task('3rdparty-scripts-watch', ['3rdparty-scripts'], browserSync.reload);
 /* Bundles the main script, distributes it, and adds references to the 3rdparty libs */
 gulp.task('scripts', function() {
   var b = browserify(CONFIG.browserify);
-  b.add(APP_DIRS.main);
+  b.add(APP + JS + '/' + MAIN);
 
   EXTERNALS.forEach(function(external) {
     if(external.expose) {
@@ -152,7 +153,7 @@ gulp.task('scripts', function() {
     }
   });
   
-  return bundle(b, 'main.js', 'MAIN');
+  return bundle(b, MAIN, 'MAIN');
 });
 gulp.task('scripts-watch', ['scripts'], browserSync.reload);
 
@@ -167,13 +168,13 @@ gulp.task('dist', ['scripts', '3rdparty-scripts', 'styles', 'fonts', 'statics'])
 gulp.task('serve', ['dist'], function() {
   browserSync({
     server: {
-      baseDir: DIST_DIRS.dist
+      baseDir: DIST
     }
   });
 
-  gulp.watch(APP_DIRS.js + '/**/*.js', ['scripts-watch']);
-  gulp.watch(APP_DIRS.sass + '/**/*.scss', ['styles-watch']);
-  gulp.watch(APP_DIRS.statics, ['statics-watch']);
+  gulp.watch(APP + JS + '/**/*.js', ['scripts-watch']);
+  gulp.watch(APP + SCSS + '/**/*.scss', ['styles-watch']);
+  gulp.watch(STATICS, ['statics-watch']);
 });
 
 
