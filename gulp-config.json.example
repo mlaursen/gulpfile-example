@@ -1,0 +1,10 @@
+{
+  "sass": {
+    "style": "expanded",
+    "sourcemap": true,
+    "lineNumbers": true
+  },
+  "browserify": {
+    "debug": true
+  }
+}
