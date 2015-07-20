@@ -26,9 +26,11 @@ Starting around line 33, you can define the list of external modules that should
 To distribute all the files and start browsersync for development mode, you can just run `gulp`.
 
 To distribute all the files for production, add `--production` to your command.
+
 ```bash
 gulp dist --production
 ```
 
 > Any command can be _productionified_ by adding `--production`
 
+The production build will also replace all occurences of `.css`, `.js` with `.min.css` and `.min.js` (respectively) in html files.

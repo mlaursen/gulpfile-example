@@ -8,6 +8,7 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     gulpif = require('gulp-if'),
     del = require('del'),
+    replace = require('gulp-replace'),
     argv = require('yargs').argv,
     uglify = require('gulp-uglify'),
     browserSync = require('browser-sync');
@@ -24,7 +25,7 @@ const SCSS = '/scss';
 const FONTS = '/fonts';
 
 const DIST = './dist';
-const STATICS = APP + '/**/*.+(png|jpg|jpeg|ico|json|html|mp3|ttf)';
+const STATICS = APP + '/**/*.+(png|jpg|jpeg|ico|json|mp3|ttf)';
 const MAIN = 'main.js';
 const LIBS = '3rdparty.js';
 
@@ -76,10 +77,20 @@ gulp.task('fonts', function() {
 });
 
 
-  /* Copy all the statics into the dist folder */
+  /* Copy all the statics into the dist folder and if is production, replaces .css, .js with .min.css ir .min.js in html files */
 gulp.task('statics', function() {
   // base allows for full path to statics from that directory
-  return gulp.src(STATICS, { base: APP })
+  // ex: src/app/fonts/example/Example.ttf -> /dist/fonts/example/Example.ttf
+  gulp.src(STATICS, { base: APP })
+    .pipe(gulp.dest(DIST));
+
+  if(!isProduction) {
+    return;
+  }
+
+  // replaces .css and .js with .min prefixed.
+  return gulp.src(APP + '/**/*.html')
+    .pipe(replace(/(\.(js|css))/g,'.min$1'))
     .pipe(gulp.dest(DIST));
 });
 gulp.task('statics-watch', ['statics'], browserSync.reload);
@@ -156,8 +167,6 @@ gulp.task('scripts', function() {
   return bundle(b, MAIN, 'MAIN');
 });
 gulp.task('scripts-watch', ['scripts'], browserSync.reload);
-
-
 
 
   /* Distribute the application with all files into the dist folder */
