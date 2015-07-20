@@ -14,7 +14,7 @@ var gulp = require('gulp'),
 
 
 // Enable 'production' distribution by adding '--production'
-var isProduction = argv.production;
+var isProduction = argv.production != null;
 
 // Location of the frontend source files.
 const APP = './src/app';
@@ -56,7 +56,7 @@ try {
   }
 }
 
-const CONFIG = isProduction != null ? PROD_CONFIG : DEV_CONFIG;
+const CONFIG = isProduction ? PROD_CONFIG : DEV_CONFIG;
 
 
 // =============================================
