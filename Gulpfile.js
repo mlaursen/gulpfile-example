@@ -25,7 +25,7 @@ const SCSS = '/scss';
 const FONTS = '/fonts';
 
 const DIST = './dist';
-const STATICS = APP + '/**/*.+(png|jpg|jpeg|ico|json|mp3|ttf)';
+const STATICS = APP + '/**/*.+(png|jpg|jpeg|ico|json|html|mp3|ttf)';
 const MAIN = 'main.js';
 const LIBS = '3rdparty.js';
 
@@ -35,7 +35,7 @@ const LIBS = '3rdparty.js';
 const EXTERNALS = [
   { require: 'react' },
   { require: 'react/addons' },
-  { require: 'react/lib/keyMirror' },
+  { require: 'react/lib/keyMirror', expose: 'react-keymirror' },
   { require: 'flux' },
   { require: 'events' },
   { require: 'underscore' },
@@ -50,7 +50,7 @@ const PROD_CONFIG = {
 
 var DEV_CONFIG = PROD_CONFIG;
 try {
-  DEV_CONFIG = require.resolve('gulp-config.json');
+  DEV_CONFIG = require('./gulp-config.json');
 } catch(e) {
   if(!isProduction) {
     console.log('No \'gulp-config.json\' file has been found. Defaulting to prod config.');
