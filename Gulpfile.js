@@ -27,18 +27,14 @@ const FONTS = '/fonts';
 const DIST = './dist';
 const STATICS = APP + '/**/*.+(png|jpg|jpeg|ico|json|html|mp3|ttf)';
 const MAIN = 'main.js';
-const LIBS = '3rdparty.js';
+const LIBS = 'libs.js';
 
 
 // Any external packages that should be referenced from outside of your 'main.js' file.
 // 'expose' is how you want to want to reference that lib from your main. Is optional.
 const EXTERNALS = [
   { require: 'react' },
-  { require: 'react/addons' },
   { require: 'react/lib/keyMirror', expose: 'react-keymirror' },
-  { require: 'flux' },
-  { require: 'events' },
-  { require: 'underscore' },
 ];
 
 const PROD_CONFIG = {
@@ -48,16 +44,7 @@ const PROD_CONFIG = {
   browserify: { },
 };
 
-var DEV_CONFIG = PROD_CONFIG;
-try {
-  DEV_CONFIG = require('./gulp-config.json');
-} catch(e) {
-  if(!isProduction) {
-    console.log('No \'gulp-config.json\' file has been found. Defaulting to prod config.');
-  }
-}
-
-const CONFIG = isProduction ? PROD_CONFIG : DEV_CONFIG;
+const CONFIG = isProduction ? PROD_CONFIG : require('./gulp-dev-config.json');
 
 
 // =============================================
@@ -114,9 +101,9 @@ gulp.task('styles-watch', ['styles']);
 
 
 /*
- * Helper function for bundling apps and 3rdparty libs. Pass
+ * Helper function for bundling apps and libs. Pass
  * in the bundle browerserify bundle you want to bundle, the bundled filename,
- * and type of this bundle (3rdparty, main, etc).
+ * and type of this bundle (libs, main, etc).
  *
  * If this is production, the bundle will be minified and renamed to have a '.min' prefix.
  */
@@ -133,8 +120,8 @@ function bundle(b, fileName, type) {
     .pipe(gulp.dest(DIST + JS));
 }
 
-  /* Bundle the 3rdparty scripts to be used from the main app */
-gulp.task('3rdparty-scripts', function() {
+  /* Bundle the libs scripts to be used from the main app */
+gulp.task('libs-scripts', function() {
   var vendors = browserify();
   EXTERNALS.forEach(function(external) {
     if(external.expose) {
@@ -144,14 +131,14 @@ gulp.task('3rdparty-scripts', function() {
     }
   });
 
-  return bundle(vendors, LIBS, '3RDPARTY');
+  return bundle(vendors, LIBS, 'LIBS');
 
 
 });
-gulp.task('3rdparty-scripts-watch', ['3rdparty-scripts'], browserSync.reload);
+gulp.task('libs-scripts-watch', ['libs-scripts'], browserSync.reload);
 
 
-/* Bundles the main script, distributes it, and adds references to the 3rdparty libs */
+/* Bundles the main script, distributes it, and adds references to the libs */
 gulp.task('scripts', function() {
   var b = browserify(CONFIG.browserify);
   b.add(APP + JS + '/' + MAIN);
@@ -170,7 +157,7 @@ gulp.task('scripts-watch', ['scripts'], browserSync.reload);
 
 
   /* Distribute the application with all files into the dist folder */
-gulp.task('dist', ['scripts', '3rdparty-scripts', 'styles', 'fonts', 'statics']);
+gulp.task('dist', ['scripts', 'libs-scripts', 'styles', 'fonts', 'statics']);
 
 
   /* Start up browsersync and start watching files */

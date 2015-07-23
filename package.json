@@ -4,7 +4,7 @@
   "description": "Example project for showing how to get gulp working with browserify, sass, ReactJS, and BrowserSync. BrowserSync will auto update the browser with changes and auto-inject css changes.",
   "main": "src/app/js/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "node scripts/postinstall"
   },
   "repository": {
     "type": "git",
@@ -26,19 +26,20 @@
   "homepage": "https://github.com/mlaursen/gulpfile-example#readme",
   "dependencies": {
     "autoprefixer-core": "^5.2.1",
+    "bootstrap-sass": "^3.3.5",
     "browserify": "^11.0.0",
     "del": "^1.2.0",
     "events": "^1.0.2",
-    "flux": "^2.0.3",
+    "font-awesome": "^4.3.0",
     "gulp-if": "^1.2.5",
     "gulp-postcss": "^5.1.9",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.3",
     "gulp-ruby-sass": "^1.0.5",
     "gulp-uglify": "^1.2.0",
+    "normalize-scss-vanilla": "^1.0.1",
     "react": "^0.13.3",
     "reactify": "^1.1.1",
-    "underscore": "^1.8.3",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "yargs": "^3.15.0"
