@@ -1,8 +1,8 @@
 var fs = require('fs'),
     path = require('path');
 
-var VENDORS = 'src/app/scss/vendors';
-var CONFIG = '../gulp-dev-config.json';
+var VENDORS = './src/app/scss/vendors';
+var CONFIG = './gulp-dev-config.json';
 
 try {
   require.resolve(CONFIG);
