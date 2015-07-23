@@ -25,7 +25,7 @@ const SCSS = '/scss';
 const FONTS = '/fonts';
 
 const DIST = './dist';
-const STATICS = APP + '/**/*.+(png|jpg|jpeg|ico|json|html|mp3|ttf)';
+const STATICS = [APP + '/**/*.+(png|jpg|jpeg|ico|json|html|mp3|ttf)', '!' + APP + SCSS + '/**/*'];
 const MAIN = 'main.js';
 const LIBS = 'libs.js';
 
