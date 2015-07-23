@@ -67,5 +67,3 @@ LINKS.forEach(function(link) {
   });
 });
 console.log('Symlinks have been create successfully.');
-
-)
