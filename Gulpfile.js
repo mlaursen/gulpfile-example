@@ -19,15 +19,15 @@ var isProduction = argv.production != null;
 
 // Location of the frontend source files.
 const APP = './src/app';
+const DIST = './dist';
 const JS = '/js';
 const CSS = '/css';
 const SCSS = '/scss';
 const FONTS = '/fonts';
 
-const DIST = './dist';
-const STATICS = [APP + '/**/*.+(png|jpg|jpeg|ico|json|html|mp3|ttf)', '!' + APP + SCSS + '/**/*'];
 const MAIN = 'main.js';
 const LIBS = 'libs.js';
+const STATICS = [APP + '/**/*.+(png|jpg|jpeg|ico|json|html|mp3|ttf)', '!' + APP + SCSS + '/**/*'];
 
 
 // Any external packages that should be referenced from outside of your 'main.js' file.
@@ -138,7 +138,7 @@ gulp.task('libs-scripts', function() {
 gulp.task('libs-scripts-watch', ['libs-scripts'], browserSync.reload);
 
 
-/* Bundles the main script, distributes it, and adds references to the libs */
+  /* Bundles the main script, distributes it, and adds references to the libs */
 gulp.task('scripts', function() {
   var b = browserify(CONFIG.browserify);
   b.add(APP + JS + '/' + MAIN);

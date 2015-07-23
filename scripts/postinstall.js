@@ -18,7 +18,8 @@ try {
 }
 
 /*
- * A list of symlinks to create.
+ * A list of symlinks to create. Currently the vendors are all from npm, but
+ * they could come from bower or whatevs.
  * @param source - the item to create a symlink of
  * @param target - the the destination of the symlink
  * @param type - the type of the symlink (Used for windows only)
