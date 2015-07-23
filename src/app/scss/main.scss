@@ -1,0 +1,17 @@
+/* Importing all vendors first so we can use their variables */
+@import "vendors/normalize-scss-vanilla/normalize";
+@import "vendors/bootstrap/bootstrap";
+@import "vendors/font-awesome/font-awesome";
+
+
+@import "helpers/variables";
+@import "helpers/mixins";
+@import "helpers/animations";
+
+@import "components/buttons";
+
+@import "pages/home";
+
+@import "layout/header";
+@import "layout/content";
+@import "layout/footer";
