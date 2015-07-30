@@ -54,7 +54,7 @@ LINKS.forEach(function(link) {
   var source = path.resolve(link.source);
   var target = path.resolve(link.target);
 
-  if(fs.existsSync(link.target) && fs.lstatSync(target).isSymbolicLink()) {
+  if(fs.existsSync(target) && fs.lstatSync(target).isSymbolicLink()) {
     fs.unlinkSync(target);
   }
 
