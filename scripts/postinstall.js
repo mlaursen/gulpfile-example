@@ -4,18 +4,21 @@ var fs = require('fs'),
 var VENDORS = './src/app/scss/vendors';
 var CONFIG = './gulp-dev-config.json';
 
-try {
-  require.resolve(CONFIG);
-} catch(err) {
-  console.log('Copying the example dev config file.\n');
-  fs.createReadStream(CONFIG + '.example')
-    .pipe(fs.createWriteStream(CONFIG))
+function copyFile(srcFile, destFile, completedMsg) {
+  if(fs.existsSync(destFile)) {
+    return;
+  }
+
+  fs.createReadStream(srcFile)
+    .pipe(fs.createWriteStream(destFile))
     .on('error', function(err) {
       console.error(err.message);
       throw err;
     });
-  console.log('Your configuration file has been copied with the defaults as \'%s\'.', CONFIG);
+  completedMsg && console.log(completedMsg);
 }
+
+copyFile(CONFIG + '.example', CONFIG, 'Your configuration file has been copied with the defaults as \'' + CONFIG + '\'');
 
 /*
  * A list of symlinks to create. Currently the vendors are all from npm, but
@@ -51,20 +54,20 @@ LINKS.forEach(function(link) {
   var source = path.resolve(link.source);
   var target = path.resolve(link.target);
 
-  fs.unlink(target, function(err) {
-    if(err && err.code != 'ENOENT') {
-      throw err;
-    }
-  });
+  if(fs.existsSync(link.target) && fs.lstatSync(target).isSymbolicLink()) {
+    fs.unlinkSync(target);
+  }
 
-  fs.symlink(source, target, link.type, function(err) {
-    if(err) {
-      if(err.code == 'EPERM') {
-        console.error('You must run this as administrator in Windows to create symlinks.');
-        console.error('Run \'npm install\' again once you open an admin terminal');
-      }
-      throw err;
+  try {
+    fs.symlinkSync(source, target, link.type);
+  } catch(e) {
+    if(e.code == 'EPERM') {
+      console.error('SYMLINK ERR! You must run this as administrator in Windows to create symlinks.');
+      console.error('SYMLINK ERR! Run \'npm install\' again once you open an admin terminal');
+      this.process.exit(1);
+    } else {
+      throw e;
     }
-  });
+  }
 });
 console.log('Symlinks have been create successfully.');

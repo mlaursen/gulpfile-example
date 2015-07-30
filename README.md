@@ -16,6 +16,8 @@ npm install
 
 This will download all the depedencies, copy the default developer config file and create the symlinks for any scss vendors for the project.
 
+Since we create symlinks in the postinstall.js, you need to run this in an administrator terminal on Windows. Or if you still don't have the ability to create symlinks, copy the vendor folders manually.
+
 > View/edit **scripts/postinstall.js** for any scss vendors.
 
 ##### Source Files
