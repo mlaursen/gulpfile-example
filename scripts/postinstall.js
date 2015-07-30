@@ -9,7 +9,7 @@ function copyFile(srcFile, destFile, completedMsg) {
     return;
   }
 
-  fs.createReadStream(srcFile)
+  fs.createReadStream(path.resolve(srcFile))
     .pipe(fs.createWriteStream(destFile))
     .on('error', function(err) {
       console.error(err.message);

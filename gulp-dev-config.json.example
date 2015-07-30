@@ -1,7 +1,7 @@
 {
   "sass": {
     "style": "expanded",
-    "sourcemap": true,
+    "sourcemap": false,
     "lineNumbers": true
   },
   "browserify": {
