@@ -47,6 +47,12 @@ var LINKS = [
     type: 'dir',
     name: 'font-awesome',
   },
+  {
+    source: 'node_modules/react-dd-menu/src/scss',
+    target: VENDORS + '/react-dd-menu',
+    type: 'dir',
+    name: 'react-dd-menu',
+  },
 ];
 
 console.log('Creating symlinks for:\n%s\n', LINKS.map(function(link) { return link.name; }).join(', '));

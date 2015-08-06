@@ -1,4 +1,22 @@
+var DropdownMenu = require('react-dd-menu');
+var DropdownMenuItem = DropdownMenu.DropdownMenuItem;
+
 var Application = React.createClass({
+  getInitialState: function() {
+    return {
+      isOpen: false,
+      isOpen2: false
+    };
+  },
+
+  close: function() { this.setState({ isOpen: false }); },
+  toggle: function() { this.setState({ isOpen: !this.state.isOpen }); },
+  close2: function() { this.setState({ isOpen2: false }); },
+  toggle2: function() { this.setState({ isOpen2: !this.state.isOpen2 }); },
+  click: function(e) {
+    console.log('You clicked something!');
+  },
+  
   
   render: function() {
     return (
@@ -18,6 +36,15 @@ var Application = React.createClass({
           turpis egestas. Mauris aliquam sagittis ante nec semper. Fusce placerat aliquam elit pulvinar ultrices. Nulla luctus id quam et
           semper. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer quis est suscipit metus aliquet hendrerit. 
         </p>
+        <DropdownMenu toggle={<button type="button" onClick={this.toggle}>Click me!</button>} close={this.close} isOpen={this.state.isOpen}>
+          <DropdownMenuItem action={this.click}>Example 1</DropdownMenuItem>
+        </DropdownMenu>
+        <DropdownMenu toggle={<button type="button" onClick={this.toggle2}>Click me!</button>} close={this.close2} isOpen={this.state.isOpen2}
+            className="dd-menu-inverse">
+          <li><a href="#">Example 1</a></li>
+          <li><a href="#">Example 2</a></li>
+          <li><button type="button" onClick={this.click}>Example 3</button></li>
+        </DropdownMenu>
       </div>
     );
   }

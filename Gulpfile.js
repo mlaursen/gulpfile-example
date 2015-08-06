@@ -35,6 +35,7 @@ const STATICS = [APP + '/**/*.+(png|jpg|jpeg|ico|json|html|mp3|ttf)', '!' + APP 
 const EXTERNALS = [
   { require: 'react' },
   { require: 'react/lib/keyMirror', expose: 'react-keymirror' },
+  { require: 'react-dd-menu' },
 ];
 
 const PROD_CONFIG = {
