@@ -7,8 +7,8 @@ logs
 node_modules
 .sass-cache
 dist
-src/app/scss/vendors/*
-!/src/app/scss/vendors/README.md
+src/scss/vendors/*
+!/src/scss/vendors/README.md
 
 # User specific gulp-config settings
 gulp-dev-config.json

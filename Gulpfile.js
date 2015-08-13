@@ -18,7 +18,7 @@ var gulp = require('gulp'),
 var isProduction = argv.production != null;
 
 // Location of the frontend source files.
-const APP = './src/app';
+const APP = './src';
 const DIST = './dist';
 const JS = '/js';
 const CSS = '/css';

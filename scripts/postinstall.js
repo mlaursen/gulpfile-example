@@ -1,7 +1,7 @@
 var fs = require('fs'),
     path = require('path');
 
-var VENDORS = './src/app/scss/vendors';
+var VENDORS = './src/scss/vendors';
 var CONFIG = './gulp-dev-config.json';
 
 function copyFile(srcFile, destFile, completedMsg) {
