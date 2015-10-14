@@ -1,58 +1,29 @@
 var fs = require('fs'),
     path = require('path');
 
-var VENDORS = './src/scss/vendors';
-var CONFIG = './gulp-dev-config.json';
+const VENDORS = './src/scss/vendors';
+const CONFIG = './config';
+const DEV_CONFIG = CONFIG + '/gulp-dev-config';
+const JSON = '.json';
+const JS = '.js';
 
-function copyFile(srcFile, destFile, completedMsg) {
-  if(fs.existsSync(destFile)) {
-    return;
-  }
 
-  fs.createReadStream(path.resolve(srcFile))
-    .pipe(fs.createWriteStream(destFile))
-    .on('error', function(err) {
-      console.error(err.message);
-      throw err;
-    });
-  completedMsg && console.log(completedMsg);
+function createLink(link, name, isNotNode) {
+  var prefix = isNotNode ? '.' : './node_modules';
+  return {
+    source: prefix + '/' + link,
+    target: (isNotNode ? './node_modules' : VENDORS) + '/' + name,
+    type: 'dir',
+    name: name,
+  };
 }
 
-copyFile(CONFIG + '.example', CONFIG, 'Your configuration file has been copied with the defaults as \'' + CONFIG + '\'');
-
-/*
- * A list of symlinks to create. Currently the vendors are all from npm, but
- * they could come from bower or whatevs.
- * @param source - the item to create a symlink of
- * @param target - the the destination of the symlink
- * @param type - the type of the symlink (Used for windows only)
- * @param name - the name of the symlink
- */
-var LINKS = [
-  {
-    source: 'node_modules/bootstrap-sass/assets/stylesheets',
-    target: VENDORS + '/bootstrap',
-    type: 'dir',
-    name: 'bootstrap',
-  },
-  {
-    source: 'node_modules/normalize-scss-vanilla',
-    target: VENDORS + '/normalize-scss-vanilla',
-    type: 'dir',
-    name: 'normalize-scss-vanilla',
-  },
-  {
-    source: 'node_modules/font-awesome/scss',
-    target: VENDORS + '/font-awesome',
-    type: 'dir',
-    name: 'font-awesome',
-  },
-  {
-    source: 'node_modules/react-dd-menu/src/scss',
-    target: VENDORS + '/react-dd-menu',
-    type: 'dir',
-    name: 'react-dd-menu',
-  },
+const LINKS = [
+  createLink('src/js', 'example', true),
+  createLink('react-dd-menu/src/scss', 'react-dd-menu'),
+  createLink('react-buttons/src/scss', 'react-buttons'),
+  createLink('font-awesome/scss', 'font-awesome'),
+  createLink('bootstrap-sass/assets/stylesheets', 'bootstrap'),
 ];
 
 console.log('Creating symlinks for:\n%s\n', LINKS.map(function(link) { return link.name; }).join(', '));
@@ -77,3 +48,34 @@ LINKS.forEach(function(link) {
   }
 });
 console.log('Symlinks have been create successfully.');
+
+
+/**
+ * Attempts to copy a src file to a dest file. If the file already exists,
+ * it does not copy.
+ *
+ * The file naming scheme was 'SomeFile.js.example', so if this changes, this function
+ * needs to be updated
+ *
+ * @param file the file
+ * @param fileEnding the file ending
+ * @param completedMsg the message to display when completed. Optional
+ */
+function attemptFileCopy(file, fileEnding, completedMsg) {
+  var srcFile = file + fileEnding + '.example';
+  var destFile = file + fileEnding;
+  if(fs.existsSync(destFile)) {
+    return;
+  }
+
+  fs.createReadStream(path.resolve(srcFile))
+    .pipe(fs.createWriteStream(destFile))
+    .on('error', function(err) {
+      console.error(err.message);
+      throw err;
+    });
+  completedMsg && console.log(completedMsg);
+}
+
+
+attemptFileCopy(DEV_CONFIG, JSON, "Your configuration file has been copied with the defaults as '" + DEV_CONFIG + JSON + "'");

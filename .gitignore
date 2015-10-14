@@ -11,4 +11,6 @@ src/scss/vendors/*
 !/src/scss/vendors/README.md
 
 # User specific gulp-config settings
-gulp-dev-config.json
+config/*
+!config/*.example
+!config/gulp-prod-config.json

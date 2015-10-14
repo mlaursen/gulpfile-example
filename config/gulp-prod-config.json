@@ -1,0 +1,6 @@
+{
+  "sass": {
+    "outputStyle": "compressed"
+  },
+  "browserify": {}
+}

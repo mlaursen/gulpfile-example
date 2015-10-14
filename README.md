@@ -11,7 +11,7 @@ Most useful tasks included:
 
 # Setup
 ```bash
-npm install
+$ npm install
 ```
 
 This will download all the depedencies, copy the default developer config file and create the symlinks for any scss vendors for the project.
@@ -20,25 +20,13 @@ Since we create symlinks in the postinstall.js, you need to run this in an admin
 
 > View/edit **scripts/postinstall.js** for any scss vendors.
 
-##### Source Files
-By default, the location of all your src files is initially set to `./src/app`. This can be changed at ~line 20.
-
-##### Main
-The default main file is `main.js`.
-
-##### Statics
-On line 27, you can define the file endings you want to consider for static files.
-
-##### External Modules
-Starting around line 33, you can define the list of external modules that should be included in your `3rdparty.js` file.
-
 # Examples
 To distribute all the files and start browsersync for development mode, you can just run `gulp`.
 
 To distribute all the files for production, add `--production` to your command.
 
 ```bash
-gulp dist --production
+$ gulp dist --production
 ```
 
 > Any command can be _productionified_ by adding `--production`
@@ -57,26 +45,27 @@ dist/
 |    |--- libs.js
 |    |--- main.js
 src/
-|--- app/
-|    |--- index.html
-|    |--- js/
-|    |     |--- main.js        // Entry point for browserify
-|    |--- scss/
-|    |    |--- main.scss       // Entry point for scss
-|    |    |--- components/
-|    |    |    |--- _buttons.scss
-|    |    |--- helpers/
-|    |    |    |--- _animations.scss
-|    |    |    |--- _mixins.scss
-|    |    |    |--- _variables.scss
-|    |    |--- layout/
-|    |    |    |--- _content.scss
-|    |    |    |--- _footer.scss
-|    |    |    |--- _header.scss
-|    |    |--- pages/
-|    |    |    |--- _home.scss
-|    |    |--- vendors/        // Contains symlinks to any external css/scss folder
-|    |    |    |--- bootstrap/
-|    |    |    |--- font-awesome/
-|    |    |    |--- normalize-scss-vanilla/
+|---
+|    index.html
+|    js/
+|     |--- main.js        // Entry point for browserify
+|    scss/
+|    |--- main.scss       // Entry point for scss
+|    |--- components/
+|    |    |--- _person.scss
+|    |--- helpers/
+|    |    |--- _animations.scss
+|    |    |--- _mixins.scss
+|    |    |--- _variables.scss
+|    |--- layout/
+|    |    |--- _content.scss
+|    |    |--- _footer.scss
+|    |    |--- _header.scss
+|    |--- pages/
+|    |    |--- _home.scss
+|    |--- vendors/        // Contains symlinks to any external css/scss folder
+|    |    |--- bootstrap/
+|    |    |--- font-awesome/
+|    |    |--- react-buttons/
+|    |    |--- react-dd-menu/
 ```

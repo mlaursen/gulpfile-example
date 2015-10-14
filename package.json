@@ -2,9 +2,12 @@
   "name": "gulpfile-example",
   "version": "1.0.0",
   "description": "Example project for showing how to get gulp working with browserify, sass, ReactJS, and BrowserSync. BrowserSync will auto update the browser with changes and auto-inject css changes.",
-  "main": "src/app/js/main.js",
+  "main": "src/js/main.js",
   "scripts": {
-    "postinstall": "node scripts/postinstall"
+    "postinstall": "node scripts/postinstall",
+    "build": "gulp dist --production",
+    "build:dev": "gulp dist",
+    "start": "gulp serve"
   },
   "repository": {
     "type": "git",
@@ -16,7 +19,9 @@
     "sass",
     "browsersync",
     "browserify",
-    "react"
+    "react",
+    "es6",
+    "boilerplate"
   ],
   "author": "mlaursen",
   "license": "MIT",
@@ -24,34 +29,44 @@
     "url": "https://github.com/mlaursen/gulpfile-example/issues"
   },
   "homepage": "https://github.com/mlaursen/gulpfile-example#readme",
+  "babel": {
+    "stage": 0
+  },
   "dependencies": {
-    "autoprefixer-core": "^5.2.1",
-    "bootstrap-sass": "^3.3.5",
-    "browserify": "^11.0.0",
-    "del": "^1.2.0",
-    "events": "^1.0.2",
-    "font-awesome": "^4.3.0",
-    "gulp-if": "^1.2.5",
-    "gulp-postcss": "^5.1.9",
-    "gulp-rename": "^1.2.2",
-    "gulp-replace": "^0.5.3",
-    "gulp-ruby-sass": "^1.0.5",
-    "gulp-uglify": "^1.2.0",
-    "normalize-scss-vanilla": "^1.0.1",
-    "react": "^0.13.3",
-    "react-dd-menu": "0.0.1",
-    "reactify": "^1.1.1",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0",
-    "yargs": "^3.15.0"
+    "history": "^1.12.5",
+    "react": "^0.14.0",
+    "react-addons-css-transition-group": "^0.14.0",
+    "react-addons-pure-render-mixin": "^0.14.0",
+    "react-buttons": "0.0.10",
+    "react-dd-menu": "^1.0.4",
+    "react-dom": "^0.14.0",
+    "react-router": "^1.0.0-rc3"
   },
   "devDependencies": {
-    "browser-sync": "^2.7.13",
-    "gulp": "^3.9.0"
-  },
-  "browserify": {
-    "transform": [
-      "reactify"
-    ]
+    "autoprefixer": "^6.0.3",
+    "babel-core": "^5.8.25",
+    "babel-eslint": "^4.1.3",
+    "babelify": "^6.3.0",
+    "bootstrap-sass": "^3.3.5",
+    "browser-sync": "^2.9.11",
+    "browserify": "^11.2.0",
+    "connect-history-api-fallback": "^1.1.0",
+    "del": "^2.0.2",
+    "eslint-plugin-react": "^3.5.1",
+    "font-awesome": "^4.4.0",
+    "gulp": "^3.9.0",
+    "gulp-cache": "^0.3.0",
+    "gulp-eslint": "^1.0.0",
+    "gulp-imagemin": "^2.3.0",
+    "gulp-postcss": "^6.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.4",
+    "gulp-sass": "^2.0.4",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.4.2",
+    "gulp-util": "^3.0.6",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "yargs": "^3.27.0"
   }
 }

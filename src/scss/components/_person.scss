@@ -1,0 +1,16 @@
+.person-list {
+  padding: 1.5em;
+  box-shadow: 0 0 4px rgba(0, 0, 0, .15), 0 2px 6px rgba(0, 0, 0, .29);
+
+  > ul > li:not(:last-child) {
+    margin-bottom: .75em;
+  }
+}
+
+
+.person {
+  font-family: $roboto;
+  padding: 1em;
+
+  box-shadow: 0 0 4px rgba(0, 0, 0, .15), 0 2px 6px rgba(0, 0, 0, .29);
+}

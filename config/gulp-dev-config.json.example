@@ -1,0 +1,9 @@
+{
+  "sass": {
+    "outputStyle": "expanded",
+    "sourceMap": false
+  },
+  "browserify": {
+    "debug": true
+  }
+}

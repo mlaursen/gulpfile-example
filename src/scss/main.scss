@@ -1,15 +1,17 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto|Montserrat:400,700|Nunito|Sigmar+One);
+
 /* Importing all vendors first so we can use their variables */
-@import "vendors/normalize-scss-vanilla/normalize";
-@import "vendors/bootstrap/bootstrap";
 @import "vendors/font-awesome/font-awesome";
+@import "vendors/react-buttons/react-buttons";
 @import "vendors/react-dd-menu/react-dd-menu";
+@import "vendors/bootstrap/bootstrap"; // overrides react-button variables -_-
 
 
 @import "helpers/variables";
 @import "helpers/mixins";
 @import "helpers/animations";
 
-@import "components/buttons";
+@import "components/person";
 
 @import "pages/home";
 
