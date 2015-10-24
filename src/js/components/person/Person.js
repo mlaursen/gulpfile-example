@@ -21,6 +21,7 @@ export default class Person extends Component {
 
   static propTypes = {
     id: PropTypes.string,
+    params: PropTypes.object,
   }
 
   render() {
@@ -33,6 +34,7 @@ export default class Person extends Component {
     return (
       <div className="person">
         <h3>Some person, {this.props.id}</h3>
+        {this.props.children}
         <DropdownMenu {...menuProps}>
           <li><a href="#">Boop</a></li>
         </DropdownMenu>

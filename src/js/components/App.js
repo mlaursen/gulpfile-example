@@ -24,6 +24,24 @@ export default class App extends Component {
             <li>
               <Link to="/persons" activeClassName="active">Persons</Link>
             </li>
+            <li>
+              <Link to="/persons/a" activeClassName="active">Person A</Link>
+            </li>
+            <li>
+              <Link to="/persons/b" activeClassName="active">Person B</Link>
+            </li>
+            <li>
+              <Link to="/persons/c" activeClassName="active">Person C</Link>
+            </li>
+            <li>
+              <Link to="/persons/d" activeClassName="active">Person D</Link>
+            </li>
+            <li>
+              <Link to="/persons/e" activeClassName="active">Person E</Link>
+            </li>
+            <li>
+              <Link to="/persons/f" activeClassName="active">Person F</Link>
+            </li>
           </ul>
         </nav>
         <main className="container">{this.props.children}</main>;

@@ -12,6 +12,8 @@ export default class PersonList extends Component {
 
   static propTypes = {
     ids: PropTypes.arrayOf(PropTypes.string),
+    params: PropTypes.object,
+    children: PropTypes.node,
   }
 
   static defaultProps = {
@@ -23,7 +25,15 @@ export default class PersonList extends Component {
       <div className="person-list">
         <h2>Hello from PersonList</h2>
         <ul className="list-unstyled">
-          {this.props.ids.map(id => <li key={id}><Person id={id} /></li>)}
+          {this.props.ids.map(id => {
+            return (
+              <li key={id}>
+                <Person id={id}>
+                  {id === this.props.params.id && this.props.children}
+                </Person>
+              </li>
+            );
+          })}
         </ul>
       </div>
     );
